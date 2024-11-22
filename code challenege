@@ -1,0 +1,129 @@
+const findSum = function(array) {
+    // your code here - don't forget to return a number!
+    let arrayTotal = array.length;
+    let arraySum = 0;
+
+    for (let i = 0; i < arrayTotal; i++) {
+        arraySum += array[i];
+    }
+    return arraySum;
+  };
+
+// findSum(array);
+
+   const findFrequency = function(array) {
+    // your code here - don't forget to return an object!
+    let frequency = {}; // object to store count each item appears
+
+    let leastFrequent; 
+    let mostFrequent;
+    let maxCount = 0; 
+    let minCount = Infinity;
+
+
+    array.forEach(item => { // forEach loop to iterate over items and count their frequency
+      frequency[item] = (frequency[item] || 0) + 1; // if it exists +1 to its frequency, else start at 1
+
+    });
+
+// this finds out which has the most & least frequency
+
+      for (let item in frequency) { // looping through freq object keys
+        if (frequency[item] > maxCount) { // check if each item is > then maxCount value 
+          mostFrequent = item; // if it is > maxCount set item to mostFrequent
+          maxCount = frequency[item]; // finally sets the maxCount to items frequency, (maxCount starts at 0 then gets updated depending on items frequency in an array)
+        }
+        if (frequency[item] < minCount) { // checks if each item < minCount value of infinity to start 
+          leastFrequent = item; // if true it sets the item to least frequent
+          minCount = frequency[item]; // 
+        }
+      }
+      return { // this returns the most and least frequent in the key/value form of an object
+        most: mostFrequent,
+        least: leastFrequent
+      };
+    };
+  
+
+   const isPalindrome = function(str) {
+    // your code here - don't forget to return a boolean!
+      let lowerStr = str.toLowerCase(); // sets the string to lowercaseso that errors like "Racecar" being false dont occur
+      let reverse = lowerStr.split("").reverse().join(""); //this splits the lowercase array, reverses it, then conjoins the reverse.
+      
+      if (reverse == lowerStr) { //checks if the reversed ver. is the same as the lowercase original.
+        return true; // if it is the same it returns true
+      } else {
+      return false; // otherwise it returns false
+      }
+  };
+
+ 
+  const largestPair = function(array) {
+    // your code here - don't forget to return a number!
+    
+    let largestProduct = array[0] * array[1]; // Intially wanted to set to 0 but set to first pair product incase of negative numbers.
+
+    for (let i = 0; i < array.length - 1; i++) {
+      const currentPairProduct = array[i] * array[i + 1]; // This sets the product of the adjacent element within the array to the var currentPairProduct
+      
+      if (currentPairProduct > largestProduct) {
+        largestProduct = currentPairProduct;
+      }
+    }
+    return largestProduct;
+
+  };
+
+  
+  const removeParenth = function(str) {
+    // your code here - don't forget to return a string!
+      let betterStr = str.replace(/[()]/g, ''); // anything within the S.brackets gets replaced and is set to the global scope
+    console.log(betterStr); // this just print the string after the special charachters are removed and replaced with '' (no space)
+  };
+  // removeParenth('He(ll(o) W(o)rld!');
+  // removeParenth('(H)o(w)) d(i)d (I( (d()0)?')
+  
+
+  
+  const scoreScrabble = function(yourScrabbleWord) {
+    // your code here - don't forget to return a number!
+
+    // the keys are the score, the valuses are the letter/s tied to the score
+    const wordScoring = {
+      1: ['a', 'e', 'i', 'o', 'u', 'l', 'n', 'r', 's', 't'],
+      2: ['d', 'g'],
+      3: ['b', 'c', 'm', 'p'],
+      4: ['f', 'h', 'v', 'w', 'y'],
+      5: ['k'],
+      8: ['j', 'x'],
+      10: ['q', 'z']
+    };
+
+    // this formats the word and splits it to iterate over and compare to the wordScoring letters
+    const splitWordLetters = yourScrabbleWord.toLowerCase().split('');
+
+    // initial score starts @ 0, later each letter and its score gets parsed into this score
+    let totalScore = 0;
+
+    // for loop to iterate overover each letter in the word
+    for (let i = 0; i < splitWordLetters.length; i++ ) {
+      const letter = splitWordLetters[i];
+      
+      // nested for loop checks the current letter against the wordScoring letters
+      for (let score in wordScoring) {
+        const letterArray = wordScoring[score];
+
+        // if the letter is in the current wordScoring array it adds it to the total score
+        if (letterArray.includes(letter)) {
+          totalScore += parseInt(score);
+          break; // this just stops the loop once a score is found
+        }
+      }
+    }
+    // formated response telling the user their input word and its scrabble score.
+    console.log(`Your word is "${yourScrabbleWord}" and its scrabble score is... ${totalScore} points!`)
+    // this returns the word's scrabble score as a number
+    return totalScore; 
+  };
+
+
